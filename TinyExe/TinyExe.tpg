@@ -1,0 +1,82 @@
+//@TinyPG - a Tiny Parser Generator v1.3
+//Copyright © Herre Kuijpers 2008-2010
+//Simple expression calculator
+<% @TinyPG Language="C#" OutputPath="D:\Personal\MyProjects\Net\TinyPG\GrammarTests\csharp\TinyExe\TinyExe\Evaluator\" Namespace="TinyExe" %>
+
+// include text highlighting as part of the input window
+<% @TextHighlighter Generate="true" %>
+
+[Color(0, 0, 255)]
+BOOLEANLITERAL	-> @"true|false";
+[Color(255, 0, 0)]
+DECIMALINTEGERLITERAL-> @"[0-9]+(UL|Ul|uL|ul|LU|Lu|lU|lu|U|u|L|l)?";
+[Color(255, 0, 0)]
+REALLITERAL 		-> @"([0-9]+\.[0-9]+([eE][+-]?[0-9]+)?([fFdDMm]?)?)|(\.[0-9]+([eE][+-]?[0-9]+)?([fFdDMm]?)?)|([0-9]+([eE][+-]?[0-9]+)([fFdDMm]?)?)|([0-9]+([fFdDMm]?))";
+HEXINTEGERLITERAL	-> @"0(x|X)[0-9a-fA-F]+";
+[Color(155, 0, 0)]
+STRINGLITERAL		-> @"\""(\""\""|[^\""])*\"""; // shortcut implementation, not quite ready
+[Color(0, 80, 0)]
+FUNCTION		-> @"[a-zA-Z_][a-zA-Z0-9_]*(?=\s*\()"; // matches only when followed by (
+VARIABLE		-> @"[a-zA-Z_][a-zA-Z0-9_]*(?!\s*\()"; // matches only when NOT followed by (
+CONSTANT		-> @"(?i)pi|e";
+
+BRACEOPEN		-> @"{\s*";
+BRACECLOSE		-> @"\s*}";
+BRACKETOPEN		-> @"\(\s*";
+BRACKETCLOSE		-> @"\s*\)";
+SEMICOLON		-> @";";
+PLUSPLUS		-> @"\+\+";
+MINUSMINUS		-> @"--";
+PIPEPIPE		-> @"\|\|";
+AMPAMP			-> @"&&";
+AMP			-> @"&(?!&)"; // matches only when NOT followed by second &
+POWER			-> @"\^";
+PLUS			-> @"\+";
+MINUS			-> @"-";
+EQUAL			-> @"=";
+ASSIGN			-> @":=";
+NOTEQUAL		-> @"!=|<>";
+NOT			-> @"!";
+ASTERIKS		-> @"\*";
+SLASH			-> @"/";
+PERCENT		-> @"%";
+QUESTIONMARK		-> @"\?";
+COMMA			-> @",";
+LESSEQUAL		-> @"<=";
+GREATEREQUAL		-> @">=";
+LESSTHAN		-> @"<(?!>)"; // matches only when not followed by >
+GREATERTHAN		-> @">";
+COLON			-> @":";
+EOF			-> @"^$";
+
+
+[Skip] WHITESPACE 	-> @"\s+";
+
+
+Start -> (Expression)? EOF;
+
+//expressions
+Function			-> FUNCTION BRACKETOPEN Params? BRACKETCLOSE;
+PrimaryExpression		-> Function | Variable | Literal | ParenthesizedExpression; // recheck
+ParenthesizedExpression	-> BRACKETOPEN Expression BRACKETCLOSE;
+UnaryExpression		-> PrimaryExpression
+	    			   | PLUS UnaryExpression
+				   | MINUS UnaryExpression
+				   | NOT UnaryExpression;
+PowerExpression		-> UnaryExpression (POWER UnaryExpression)*; //ok
+MultiplicativeExpression	-> PowerExpression ((ASTERIKS | SLASH | PERCENT) PowerExpression)*; // ok
+AdditiveExpression		-> MultiplicativeExpression ((PLUS | MINUS) MultiplicativeExpression)*; 
+ConcatEpression 		-> AdditiveExpression (AMP AdditiveExpression)*;
+RelationalExpression		-> ConcatEpression ((LESSTHAN | LESSEQUAL | GREATERTHAN | GREATEREQUAL) ConcatEpression)?;
+EqualityExpression		-> RelationalExpression ((EQUAL | NOTEQUAL) RelationalExpression)*;
+ConditionalAndExpression	-> EqualityExpression (AMPAMP EqualityExpression)*;  //ok
+ConditionalOrExpression 	-> ConditionalAndExpression (PIPEPIPE ConditionalAndExpression)*; //ok
+AssignmentExpression		-> ConditionalOrExpression (QUESTIONMARK AssignmentExpression COLON AssignmentExpression)? ; // ok
+Expression		 	-> AssignmentExpression? (ASSIGN AssignmentExpression)?;
+//literals
+Params				-> Expression (SEMICOLON Expression)*;
+Literal 			-> BOOLEANLITERAL | IntegerLiteral | RealLiteral | StringLiteral;
+IntegerLiteral 		-> DECIMALINTEGERLITERAL | HEXINTEGERLITERAL;
+RealLiteral 			-> REALLITERAL;
+StringLiteral			-> STRINGLITERAL;
+Variable 			-> VARIABLE;

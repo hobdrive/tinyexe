@@ -72,7 +72,7 @@ namespace TinyExe
             return result;
         }
 
-        public DynamicFunction(string name, ParseNode node, Variables args, int minParameters = 0, int maxParameters = 0)
+        public DynamicFunction(string name, ParseNode node, Variables args, int minParameters, int maxParameters)
         {
             Node = node;
             Arguments = args;
@@ -96,7 +96,7 @@ namespace TinyExe
             return result;
         }
 
-        public StaticFunction(string name, FunctionDelegate function, int minParameters = 0, int maxParameters = 0)
+        public StaticFunction(string name, FunctionDelegate function, int minParameters, int maxParameters)
         {
             Name = name;
             FunctionDelegate = function;

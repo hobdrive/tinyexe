@@ -51,8 +51,9 @@ namespace TinyExe
             this.Add("sinh", new StaticFunction("Sinh", delegate(object[] ps) { return Math.Sinh(Convert.ToDouble(ps[0])); }, 1, 1));
             this.Add("sqr", new StaticFunction("Sqr", delegate(object[] ps) { return Convert.ToDouble(ps[0]) * Convert.ToDouble(ps[0]); }, 1, 1));
             this.Add("sqrt", new StaticFunction("Sqrt", delegate(object[] ps) { return Math.Sqrt(Convert.ToDouble(ps[0])); }, 1, 1));
+#if !WINCE
             this.Add("trunc", new StaticFunction("Trunc", delegate(object[] ps) { return Math.Truncate(Convert.ToDouble(ps[0])); }, 1, 1));
-
+#endif
             // array functions
             this.Add("avg", new StaticFunction("Avg", Avg, 1, int.MaxValue));
             this.Add("stdev", new StaticFunction("StDev", StDev, 1, int.MaxValue));
@@ -162,7 +163,7 @@ namespace TinyExe
                 return Math.Log10(Convert.ToDouble(ps[0]));
 
             if (ps.Length == 2)
-                return Math.Log(Convert.ToDouble(ps[0]), Convert.ToDouble(ps[1]));
+                return Math.Log(Convert.ToDouble(ps[0])) / Math.Log(Convert.ToDouble(ps[1]));
 
             return null;
         }

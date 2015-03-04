@@ -93,7 +93,6 @@ namespace TinyExe
             this.Add("lower", new StaticFunction("Lower", delegate(object[] ps) { return ps[0].ToString().ToLowerInvariant(); }, 1, 1));
             this.Add("upper", new StaticFunction("Upper", delegate(object[] ps) { return ps[0].ToString().ToUpperInvariant(); }, 1, 1));
             this.Add("val", new StaticFunction("Val", delegate(object[] ps) { return Convert.ToDouble(ps[0]); }, 1, 1));
-            this.Add("clear", new ClearFunction());
 
         }
 

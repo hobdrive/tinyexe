@@ -26,7 +26,7 @@ namespace TinyExe
 
         public Functions Functions { get; private set; }
         public Variables Globals { get; private set; }
-        public CommandPrompt Console { get; set; }
+
         /// <summary>
         /// check current stacksize
         /// is used for debugging purposes and error handling

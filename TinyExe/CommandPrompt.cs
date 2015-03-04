@@ -7,6 +7,30 @@ using System.Globalization;
 
 namespace TinyExe
 {
+    /// <summary>
+    /// this class demonstrates how to access application specific features
+    /// e.g. access to the console through the Context object
+    /// </summary>
+    class ClearFunction : Function
+    {
+        CommandPrompt CommandPrompt;
+
+        public ClearFunction(CommandPrompt cp)
+        {
+            Name = "Clear";
+            CommandPrompt = cp;
+            MinParameters = 0;
+            MaxParameters = 0;
+        }
+
+        public override object Eval(object[] parameters, ParseTreeEvaluator tree)
+        {
+            if (CommandPrompt != null)
+                CommandPrompt.Text = "";
+            return null;
+        }
+    }
+        
     public class CommandPrompt : RichTextBox
     {
         private bool navigated = false; // remember if Up or Down keys were used
@@ -17,8 +41,7 @@ namespace TinyExe
         {
             base.OnCreateControl();
             SelectionStart = Text.Length;
-            Context.Default.Console = this;
-
+            Context.Default.Functions.Add("clear", new ClearFunction(this));
         }
 
         private void Execute(string expr)

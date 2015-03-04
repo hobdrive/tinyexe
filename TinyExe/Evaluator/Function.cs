@@ -105,27 +105,5 @@ namespace TinyExe
             Arguments = new Variables();            
         }
     }
-    
-    /// <summary>
-    /// this class demonstrates how to access application specific features
-    /// e.g. access to the console through the Context object
-    /// </summary>
-    public class ClearFunction : Function
-    {
-        public ClearFunction()
-        {
-            Name = "Clear";
-            MinParameters = 0;
-            MaxParameters = 0;
-        }
-
-        public override object Eval(object[] parameters, ParseTreeEvaluator tree)
-        {
-            CommandPrompt console = tree.Context.Console;
-            if (console != null)
-                console.Text = "";
-            return null;
-        }
-    }
 
 }

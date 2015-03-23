@@ -21,12 +21,16 @@ namespace TinyExe
             }
         }
 
-        public Expression(string exp)
+        public Expression(string exp) : this(exp, Context.Default)
+        {
+        }
+
+        public Expression(string exp, Context context)
         {
             expression = exp;
             Scanner scanner = new Scanner();
             Parser parser = new Parser(scanner);
-            tree = new ParseTreeEvaluator(Context.Default);
+            tree = new ParseTreeEvaluator(context);
             tree = parser.Parse(expression, tree) as ParseTreeEvaluator;
         }
 
@@ -38,17 +42,30 @@ namespace TinyExe
             return result;
         }
 
-        public static object Eval(string expression)
+        public object EvalOrError()
         {
-            return Expression.Eval<object>(expression);
+            object result = Eval();
+            if (result == null && tree.Errors.Count > 0)
+                return tree.Errors[0].Message + " @ " + tree.Errors[0].Column;
+            return result;
         }
 
-        public static T Eval<T>(string expression) 
+        public static object Eval(string expression, Context context)
+        {
+            return Expression.Eval<object>(expression, context);
+        }
+
+        public static object Eval(string expression)
+        {
+            return Expression.Eval<object>(expression, Context.Default);
+        }
+
+        public static T Eval<T>(string expression, Context context) 
         {
             object result = null;
             try
             {
-                Expression exp = new Expression(expression);
+                Expression exp = new Expression(expression, context);
                 
                 if (exp.tree.Errors.Count > 0)
                     result = exp.tree.Errors[0].Message;
@@ -62,5 +79,9 @@ namespace TinyExe
 
             return result != null ? ((T)(result)) : default(T);
         }
+
+
+
+
     }
 }

@@ -8,6 +8,8 @@ namespace TinyExe
     public class Functions : Dictionary<string, Function>
     {
         private static Functions defaultFunctions;
+        private Random crand = new Random();
+
         public static Functions Defaults 
         {
             get {
@@ -22,7 +24,6 @@ namespace TinyExe
 
         public void InitDefaults()
         {
-            
 
             this.Add("about", new StaticFunction("About", delegate(object[] ps) { return "@TinyExe - a Tiny Expression Evaluator v1.0\r\nby Herre Kuijpers - Copyright © 2011 under the CPOL license"; }, 0, 0));
             this.Add("help", new StaticFunction("Help", Help, 0, 0));
@@ -46,6 +47,7 @@ namespace TinyExe
 
             this.Add("pow", new StaticFunction("Pow", delegate(object[] ps) { return Math.Pow(Convert.ToDouble(ps[0]), Convert.ToDouble(ps[1])); }, 2, 2));
             this.Add("round", new StaticFunction("Round", delegate(object[] ps) { return Math.Round(Convert.ToDouble(ps[0])); }, 1, 1));
+            this.Add("rand", new StaticFunction("Rand", delegate(object[] ps) { return crand.Next(Convert.ToInt32(ps[0])); }, 1, 1));
             this.Add("sign", new StaticFunction("Sign", delegate(object[] ps) { return Math.Sign(Convert.ToDouble(ps[0])); }, 1, 1));
             this.Add("sin", new StaticFunction("Sin", delegate(object[] ps) { return Math.Sin(Convert.ToDouble(ps[0])); }, 1, 1));
             this.Add("sinh", new StaticFunction("Sinh", delegate(object[] ps) { return Math.Sinh(Convert.ToDouble(ps[0])); }, 1, 1));

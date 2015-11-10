@@ -7,6 +7,8 @@ namespace TinyExe
 {
     public delegate object FunctionDelegate(object[] parameters);
 
+    public delegate object FunctionContextDelegate(object[] parameters, Context context);
+
     public abstract class Function
     {
 
@@ -88,10 +90,17 @@ namespace TinyExe
         /// </summary>
         public FunctionDelegate FunctionDelegate { get; private set; }
 
+        public FunctionContextDelegate FunctionContextDelegate { get; private set; }
+
         public override object Eval(object[] parameters, ParseTreeEvaluator tree)
         {
             tree.Context.PushScope(null);
-            object result = FunctionDelegate(parameters);
+
+            object result = null;
+            if(FunctionDelegate != null)
+                result = FunctionDelegate(parameters);
+            else if(FunctionContextDelegate != null)
+                result = FunctionContextDelegate(parameters, tree.Context);
             tree.Context.PopScope();
             return result;
         }
@@ -100,6 +109,15 @@ namespace TinyExe
         {
             Name = name;
             FunctionDelegate = function;
+            MinParameters = minParameters;
+            MaxParameters = maxParameters;
+            Arguments = new Variables();            
+        }
+
+        public StaticFunction(string name, FunctionContextDelegate function, int minParameters, int maxParameters)
+        {
+            Name = name;
+            FunctionContextDelegate = function;
             MinParameters = minParameters;
             MaxParameters = maxParameters;
             Arguments = new Variables();            

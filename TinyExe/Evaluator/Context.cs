@@ -50,6 +50,21 @@ namespace TinyExe
             }
         }
 
+        /// <summary>
+        /// Traverse all the local scopes and searches for the specified variable
+        /// </summary>
+        /// <returns>The scoped variable.</returns>
+        /// <param name="key">Key.</param>
+        public object GetScopeVariable(string key)
+        {
+            foreach(var scope in inScope.Reverse<Variables>())
+            {
+                if (scope != null && scope.ContainsKey(key))
+                    return scope[key];
+            }
+            return null;
+        }
+
         public void PushScope(Variables vars)
         {
             inScope.Add(vars);
@@ -81,6 +96,18 @@ namespace TinyExe
             Functions.InitDefaults();
             Globals["Pi"] = 3.1415926535897932384626433832795; // Math.Pi is not very precise
             Globals["E"] = 2.7182818284590452353602874713527;  // Math.E is not very precise either
+        }
+
+        /// <summary>
+        /// Thats not a Deep clone!
+        /// Functions and Globals are shared!
+        /// </summary>
+        public Context Clone()
+        {
+            var c = new Context();
+            c.Globals = this.Globals;
+            c.Functions = this.Functions;
+            return c;
         }
     }
 }

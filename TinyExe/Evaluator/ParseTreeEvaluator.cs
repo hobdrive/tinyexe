@@ -161,8 +161,9 @@ namespace TinyExe
 
             string key = this.nodes[0].Token.Text;
             // first check if the variable was declared in scope of a function
-            if (root.Context.CurrentScope != null && root.Context.CurrentScope.ContainsKey(key))
-                return root.Context.CurrentScope[key];
+            var scope_var = root.Context.GetScopeVariable(key);
+            if(scope_var != null)
+                return scope_var;
             
             // if not in scope of a function
             // next check if the variable was declared as a global variable

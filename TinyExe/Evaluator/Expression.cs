@@ -37,8 +37,6 @@ namespace TinyExe
         public object Eval()
         {
             object result = tree.Eval(null);
-            if (tree.Context.CurrentStackSize > 0)
-                Errors.Add(new ParseError("Stacksize is not empty", 0, null));
             return result;
         }
 
@@ -48,6 +46,13 @@ namespace TinyExe
             if (result == null && tree.Errors.Count > 0)
                 return tree.Errors[0].Message + " @ " + tree.Errors[0].Column;
             return result;
+        }
+
+        public string Error()
+        {
+            if (tree.Errors.Count > 0)
+                return tree.Errors[0].Message + " @ " + tree.Errors[0].Column;
+            return null;
         }
 
         public static object Eval(string expression, Context context)

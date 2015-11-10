@@ -35,7 +35,11 @@ namespace TinyExe
         {
         }
 
-        public ParseError(string message, int code, ParseNode node) : this(message, code,  0, node.Token.StartPos, node.Token.StartPos, node.Token.Length)
+        public ParseError(string message, int code, ParseNode node)
+            : this(message, code,  0,
+                node != null ? node.Token.StartPos : 0,
+                node != null ? node.Token.StartPos : 0,
+                node != null ? node.Token.Length : 0)
         {
         }
 

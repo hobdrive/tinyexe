@@ -61,7 +61,7 @@ namespace TinyExe
             this.Add("stdev", new StaticFunction("StDev", StDev, 1, int.MaxValue));
             this.Add("var", new StaticFunction("Var", Var, 1, int.MaxValue));
             this.Add("max", new StaticFunction("Max", Max, 1, int.MaxValue));
-            this.Add("median", new StaticFunction("Min", Median, 1, int.MaxValue));
+            this.Add("median", new StaticFunction("Median", Median, 1, int.MaxValue));
             this.Add("min", new StaticFunction("Min", Min, 1, int.MaxValue));
 
             //boolean functions

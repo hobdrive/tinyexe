@@ -1,7 +1,7 @@
 //@TinyPG - a Tiny Parser Generator v1.3
 //Copyright © Herre Kuijpers 2008-2010
 //Simple expression calculator
-<% @TinyPG Language="C#" OutputPath="D:\Personal\MyProjects\Net\TinyPG\GrammarTests\csharp\TinyExe\TinyExe\Evaluator\" Namespace="TinyExe" %>
+<% @TinyPG Language="C#" OutputPath="Evaluator" Namespace="TinyExe" RegexCompiled="False"%>
 
 // include text highlighting as part of the input window
 <% @TextHighlighter Generate="true" %>
@@ -27,8 +27,8 @@ BRACKETCLOSE		-> @"\s*\)";
 SEMICOLON		-> @";";
 PLUSPLUS		-> @"\+\+";
 MINUSMINUS		-> @"--";
-PIPEPIPE		-> @"\|\|";
-AMPAMP			-> @"&&";
+PIPEPIPE		-> @"\|\||or";
+AMPAMP			-> @"&&|and";
 AMP			-> @"&(?!&)"; // matches only when NOT followed by second &
 POWER			-> @"\^";
 PLUS			-> @"\+";

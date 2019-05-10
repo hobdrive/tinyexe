@@ -31,7 +31,7 @@ namespace TinyExe
             Scanner scanner = new Scanner();
             Parser parser = new Parser(scanner);
             tree = new ParseTreeEvaluator(context);
-            tree = parser.Parse(expression, tree) as ParseTreeEvaluator;
+            tree = parser.Parse(expression, null, tree) as ParseTreeEvaluator;
         }
 
         public object Eval()
@@ -65,6 +65,11 @@ namespace TinyExe
             return Expression.Eval<object>(expression, Context.Default);
         }
 
+        public static T Eval<T>(string expression)
+        {
+            return Eval<T>(expression, Context.Default);
+        }
+
         public static T Eval<T>(string expression, Context context) 
         {
             object result = null;
@@ -84,9 +89,6 @@ namespace TinyExe
 
             return result != null ? ((T)(result)) : default(T);
         }
-
-
-
 
     }
 }

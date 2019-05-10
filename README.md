@@ -12,6 +12,8 @@ http://www.codeproject.com/Articles/241830/a-Tiny-Expression-Evaluator
 - UI code was separated from parser
 - Contexts are recursively scoped. This allows
   to declare derived contexts.
+- Syntax update to have logical `and`, `or` operations.
+- Bit functions: rshift, lshift, bitand, bitor, bitxor
 
 # Grammar details
 
@@ -27,6 +29,10 @@ It can parse mathematical expressions, including support for the most commonly u
 The following functions are supported:
 
 ~~About~~ Abs Acos And Asin Atan Atan2 Avg Ceiling Clear Cos Cosh Exp Fact Floor Format ~~Help~~ Hex If Floor Left Len Ln Log Lower Max Min Mid Min Not Or Pow Rand Right Round Sign Sin Sinh Sqr Sqrt StDev Trunc Upper Val Var
+
+Bit related functions:
+
+rshift, lshift, bitand, bitor, bitxor
 
 Basic string functions:
 
@@ -66,8 +72,8 @@ The tool uses the following precedence rules for its operators:
 6. & concatenation of strings
 7. < <= > >= Comparisons: less-than, ...
 8. = != <> Comparisons: equal and not equal
-9. && Logical AND
-10. || Logical OR
+9. `&&` `and` - Logical AND
+10. `||` `or` - Logical OR
 11. ?: Conditional expression
 12. := Assignment
 

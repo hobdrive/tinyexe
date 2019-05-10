@@ -2,8 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TinyExe;
+using NUnit.Framework;
 
 namespace TinyExe.Tests
 {
@@ -11,39 +11,39 @@ namespace TinyExe.Tests
     /// Summary description for BinaryTests
     /// Tests all && and || operations
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BinaryTests
     {
 
-        [TestMethod]
+        [Test]
         public void TestAndTrue()
         {
             bool answer = Expression.Eval<bool>("5 > 4.3 && true");
             Assert.AreEqual(answer, 5 > 4.3 && true);
         }
 
-        [TestMethod]
+        [Test]
         public void TestAndOrFalse()
         {
             bool answer = Expression.Eval<bool>("5 < 4.3 && true || \"test\" != \"test\"");
             Assert.AreEqual(answer, 5 < 4.3 && true || "test" != "test");
         }
 
-        [TestMethod]
+        [Test]
         public void TestEqStringAndTrue()
         {
             bool answer = Expression.Eval<bool>("\"test\" = \"test\" && true");
             Assert.AreEqual(answer, "test" == "test" && true);
         }
 
-        [TestMethod]
+        [Test]
         public void TestConditional()
         {
             double answer = Expression.Eval<double>("\"test\" = \"te\" & \"st\" ? 42 : 52");
             Assert.AreEqual(answer, "test" == "test" ? 42 : 52);
         }
 
-        [TestMethod]
+        [Test]
         public void TestConditionalFalse()
         {
             double answer = Expression.Eval<double>("false ? 42 : 52");

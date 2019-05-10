@@ -2,8 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TinyExe;
+using NUnit;
+using NUnit.Framework;
 
 namespace TinyExe.Tests
 {
@@ -11,11 +12,11 @@ namespace TinyExe.Tests
     /// Summary description for CalculationTests
     /// basic arithmitic tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CalculationTests
     {
 
-        [TestMethod]
+        [Test]
         public void TestMultiplicationLong()
         {
             double answer = Expression.Eval<double>("42*24");
@@ -23,56 +24,56 @@ namespace TinyExe.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void TestMultiplicationLongDouble()
         {
             double answer = Expression.Eval<double>("42 % 25 * (2.4/0.31)");
             Assert.AreEqual(answer, 42 % 25 * (2.4/0.31));
         }
 
-        [TestMethod]
+        [Test]
         public void TestMultiplicationLongLong()
         {
             double answer = Expression.Eval<double>("42.2 % 25.3 * (4/2)");
             Assert.AreEqual(answer, 42.2 % 25.3 * (4 / 2));
         }
 
-        [TestMethod]
+        [Test]
         public void TestAdditionLongDouble()
         {
             double answer = Expression.Eval<double>("42 % 25 * (2.4-0.31)");
             Assert.AreEqual(answer, 42 % 25 * (2.4 - 0.31));
         }
 
-        [TestMethod]
+        [Test]
         public void TestAdditionLongLong()
         {
             double answer = Expression.Eval<double>("42 % 25 * (4+2+(10-2))");
             Assert.AreEqual(answer, 42 % 25 * (4 + 2 + (10-2)));
         }
 
-        [TestMethod]
+        [Test]
         public void TestSign()
         {
             double answer = Expression.Eval<double>("-25");
             Assert.AreEqual(answer, -25);
         }
 
-        [TestMethod]
+        [Test]
         public void TestSignMult()
         {
             double answer = Expression.Eval<double>("42 * -25");
             Assert.AreEqual(answer, 42 * -25);
         }
 
-        [TestMethod]
+        [Test]
         public void TestPower()
         {
             double answer = Expression.Eval<double>("42 ^ 4.3");
             Assert.AreEqual(answer, Math.Pow(42, 4.3));
         }
 
-        [TestMethod]
+        [Test]
         public void TestPower3()
         {
             double answer = Expression.Eval<double>("2^3^4");
@@ -80,7 +81,7 @@ namespace TinyExe.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestFact()
         {
             double answer = Expression.Eval<double>("Fact(12)");

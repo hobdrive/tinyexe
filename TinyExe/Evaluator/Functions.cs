@@ -97,6 +97,22 @@ namespace TinyExe
             this.Add("upper", new StaticFunction("Upper", delegate(object[] ps) { return ps[0].ToString().ToUpperInvariant(); }, 1, 1));
             this.Add("val", new StaticFunction("Val", delegate(object[] ps) { return Convert.ToDouble(ps[0]); }, 1, 1));
 
+            this.Add("rshift", new StaticFunction("rshift", delegate(object[] ps) {
+                return Convert.ToInt32(ps[0]) >> Convert.ToInt32(ps[1]);
+            }, 2, 2));
+            this.Add("lshift", new StaticFunction("lshift", delegate(object[] ps) {
+                return Convert.ToInt32(ps[0]) << Convert.ToInt32(ps[1]);
+            }, 2, 2));
+            this.Add("bitand", new StaticFunction("bitand", delegate(object[] ps) {
+                return Convert.ToInt32(ps[0]) & Convert.ToInt32(ps[1]);
+            }, 2, 2));
+            this.Add("bitor", new StaticFunction("bitor", delegate(object[] ps) {
+                return Convert.ToInt32(ps[0]) | Convert.ToInt32(ps[1]);
+            }, 2, 2));
+            this.Add("bitxor", new StaticFunction("bitxor", delegate(object[] ps) {
+                return Convert.ToInt32(ps[0]) ^ Convert.ToInt32(ps[1]);
+            }, 2, 2));
+
         }
 
         /// <summary>

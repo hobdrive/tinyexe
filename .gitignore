@@ -1,2 +1,5 @@
 TinyExe/bin
 TinyExe/obj
+TinyExe.Tests/bin
+TinyExe.Tests/obj
+.vs

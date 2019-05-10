@@ -127,5 +127,20 @@ namespace TinyExe.Tests
             answer = Expression.Eval<string>("UPPER(\"FuBaR\")");
             Assert.AreEqual(answer, "FUBAR");
         }
+
+        [Test]
+        public void TestBitFunctions()
+        {
+            Assert.AreEqual(Expression.Eval<int>("rshift(16;2)"), 16>>2);
+
+            Assert.AreEqual(Expression.Eval<int>("lshift(16;2)"), 16 << 2);
+
+            Assert.AreEqual(Expression.Eval<int>("bitand(255;32)"), 255 & 32);
+
+            Assert.AreEqual(Expression.Eval<int>("bitor(12345;34)"), 12345 | 34);
+
+            Assert.AreEqual(Expression.Eval<int>("bitxor(12345;34)"), 12345 ^ 34);
+        }
+
     }
 }

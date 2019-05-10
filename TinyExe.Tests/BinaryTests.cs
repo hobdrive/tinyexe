@@ -27,6 +27,9 @@ namespace TinyExe.Tests
         {
             bool answer = Expression.Eval<bool>("5 < 4.3 && true || \"test\" != \"test\"");
             Assert.AreEqual(answer, 5 < 4.3 && true || "test" != "test");
+
+            answer = Expression.Eval<bool>("5 < 4.3 and true or \"test\" != \"test\"");
+            Assert.AreEqual(answer, 5 < 4.3 && true || "test" != "test");
         }
 
         [Test]

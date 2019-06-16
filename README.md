@@ -28,7 +28,11 @@ It can parse mathematical expressions, including support for the most commonly u
 
 The following functions are supported:
 
-~~About~~ Abs Acos And Asin Atan Atan2 Avg Ceiling Clear Cos Cosh Exp Fact Floor Format ~~Help~~ Hex If Floor Left Len Ln Log Lower Max Min Mid Min Not Or Pow Rand Right Round Sign Sin Sinh Sqr Sqrt StDev Trunc Upper Val Var
+~~About~~ Abs Acos And Asin Atan Atan2 Avg Ceiling Clear Cos Cosh Exp Fact Floor Format ~~Help~~ Hex If Floor Len Ln Log Lower Max Min Min Not Or Pow Rand Round Sign Sin Sinh Sqr Sqrt StDev Trunc Upper Val Var
+
+String functions:
+
+Left(string; len), Right(string; len), Mid(string; offset; len)
 
 Bit related functions:
 

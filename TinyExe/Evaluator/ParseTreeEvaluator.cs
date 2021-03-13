@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.Globalization;
@@ -142,7 +143,10 @@ namespace TinyExe
                 return null; // illegal number of parameters
             }
             
-            return func.Eval(parameters, root);
+            var fres = func.Eval(parameters, root);
+            string t_params = String.Join("; ", parameters);
+            Tracer.Trace("Func", "Eval "+func.Name+"("+ t_params + ") = "+fres.ToString());
+            return fres;
         }
 
         protected override object EvalVariable(ParseTree tree, params object[] paramlist)

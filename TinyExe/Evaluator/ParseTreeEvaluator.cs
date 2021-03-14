@@ -145,7 +145,7 @@ namespace TinyExe
             
             var fres = func.Eval(parameters, root);
             string t_params = String.Join("; ", parameters);
-            Tracer.Trace("Func", "Eval "+func.Name+"("+ t_params + ") = "+fres.ToString());
+            Tracer.Trace("Func", "Eval "+func.Name+"("+ t_params + ") = "+fres);
             return fres;
         }
 

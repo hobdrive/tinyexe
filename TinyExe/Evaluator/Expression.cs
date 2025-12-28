@@ -43,7 +43,7 @@ namespace TinyExe
         public object EvalOrError()
         {
             object result = Eval();
-            if (result == null && tree.Errors.Count > 0)
+            if (tree.Errors.Count > 0)
                 return tree.Errors[0].Message + " @ " + tree.Errors[0].Column;
             return result;
         }
